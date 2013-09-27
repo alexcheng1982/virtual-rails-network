@@ -1,5 +1,10 @@
 package rails.exception;
 
+/**
+ * Thrown when distance calculation cannot continue
+ * @author alexcheng
+ *
+ */
 public class DistanceCalculationException extends RailsBaseException {
 	private static final long serialVersionUID = 1L;
 

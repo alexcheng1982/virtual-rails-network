@@ -10,7 +10,11 @@ import rails.model.Route;
 import rails.model.Station;
 
 /**
- * Calculate distance from one station to another station following certain routes
+ * Calculate distance from one station to another station following certain routes. <br>
+ * Traverse the network from start station. 
+ * For each station, if a route can be found from current station to next station,
+ * add the route distance to the total value; if a route cannot be found, then throws {@code DistanceCalculationException}. 
+ *
  * @see Network
  * @author alexcheng
  *
@@ -28,9 +32,9 @@ public class DistanceCalculation {
 	}
 
 	/**
-	 * Calculate the distance
+	 * Calculate the distance following certain routes. <br> 
 	 * @param stationNames A list of station names
-	 * @return distance distance
+	 * @return distance distance from start station to end station
 	 * @throws DistanceCalculationException when no route can be found following given stations
 	 */
 	public int calculate(String... stationNames) {

@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import rails.exception.DistanceCalculationException;
 import rails.exception.StationNotExistException;
-import rails.model.Network;
 
 public class TestDistanceCalculation {
 	
@@ -15,17 +14,15 @@ public class TestDistanceCalculation {
 
 	@Before
 	public void setUp() throws Exception {
-		String encodedString = "A#B#1;B#C#2;C#D#3;D#C#4;B#E#5";
-		Network network = Network.fromEncodedString(encodedString);
-		calculation = new DistanceCalculation(network);
+		calculation = new DistanceCalculation(TestData.basicNetwork());
 	}
 
 	@Test
 	public void test_calculate_ok() {
-		assertEquals(1, calculation.calculate("A", "B"));
-		assertEquals(2, calculation.calculate("B", "C"));
-		assertEquals(3, calculation.calculate("A", "B", "C"));
-		assertEquals(6, calculation.calculate("A", "B", "C", "D"));
+		assertEquals(12, calculation.calculate("A", "B"));
+		assertEquals(5, calculation.calculate("B", "C"));
+		assertEquals(17, calculation.calculate("A", "B", "C"));
+		assertEquals(22, calculation.calculate("A", "B", "C", "D"));
 	}
 	
 	@Test(expected = StationNotExistException.class)

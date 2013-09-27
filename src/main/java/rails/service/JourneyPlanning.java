@@ -12,7 +12,12 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 
 /**
- * Plan the journey from a station to another station
+ * Plan the journey from a station to another station. <br>
+ * 
+ * Traverse the network from start station. For each station, traverse stations which have routes from current station.
+ * During the travel, the path from start station to current station is recorded.
+ * If current station is the same as target station, then the current path is considered as a result.
+ * If max number or exact number of stops is specified, then the path needs to satisfy these constraints.
  * @author alexcheng
  *
  */
@@ -27,7 +32,7 @@ public class JourneyPlanning {
 	 * List all possible journeys from a station to another station
 	 * @param start start station
 	 * @param end end station
-	 * @return A list of all possible journeys
+	 * @return a list of all possible journeys
 	 */
 	public List<List<Station>> plan(String start, String end) {
 		return journeyPlan(start, end, -1, false);
@@ -38,7 +43,7 @@ public class JourneyPlanning {
 	 * @param start start station
 	 * @param end end station
 	 * @param stops maximum number of stops
-	 * @return A list of journeys
+	 * @return a list of journeys
 	 */
 	public List<List<Station>> planWithMaxStops(String start, String end, int stops) {
 		Preconditions.checkArgument(stops > 0, "Stops number should be greater than 0.");
@@ -71,6 +76,7 @@ public class JourneyPlanning {
 			List<Station> newPath = new ArrayList<Station>(path);
 			newPath.add(current);
 			results.add(newPath);
+			return;
 		}
 		if (stops > 0 && ((max && depth > stops) || (!max && depth == stops))) {
 			return;

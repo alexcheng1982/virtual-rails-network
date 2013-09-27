@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import rails.model.Network;
 import rails.service.ShortestRoute.ShortestRouteResult;
 
 public class TestShortestRoute {
@@ -14,17 +13,25 @@ public class TestShortestRoute {
 
 	@Before
 	public void setUp() throws Exception {
-		String encodedString = "A#B#1;A#C#2;B#D#3;C#E#4;D#E#5;E#F#7";
-		Network network = Network.fromEncodedString(encodedString);
-		shortestRoute = new ShortestRoute(network);
+		shortestRoute = new ShortestRoute(TestData.basicNetwork());
 	}
 
 	@Test
 	public void test_basic_find() {
 		ShortestRouteResult result = shortestRoute.calculate("A", "B");
-		assertEquals(1, result.getDistance());
-		result = shortestRoute.calculate("A", "E");
-		assertEquals(6, result.getDistance());
+		assertEquals(12, result.getDistance());
+		assertEquals(Utils.asStations("A", "B"), result.getRoute());
+	}
+	
+	@Test
+	public void test_complex_find() {
+		ShortestRouteResult result = shortestRoute.calculate("I", "D");
+		assertEquals(30, result.getDistance());
 	}
 
+	@Test
+	public void test_same_station() {
+		ShortestRouteResult result = shortestRoute.calculate("A", "A");
+		assertEquals(0, result.getDistance());
+	}
 }

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import rails.exception.NoShortestRouteFoundException;
 import rails.model.Network;
 import rails.model.Route;
 import rails.model.Station;
@@ -11,7 +12,9 @@ import rails.model.Station;
 import com.google.common.collect.Lists;
 
 /**
- * Calculate shortest route from one station to another station
+ * Calculate shortest route from one station to another station.<br>
+ * A* search is used to find the shortest route from start station to end station.
+ * 
  * @author alexcheng
  *
  */
@@ -59,7 +62,7 @@ public class ShortestRoute {
 				}
 			}
 		}
-		return null;
+		throw new NoShortestRouteFoundException();
 	}
 	
 	/**
@@ -122,7 +125,7 @@ public class ShortestRoute {
 				stations.add(node.getStation());
 				node = node.getParentNode();
 			}
-			return stations;
+			return Lists.reverse(stations);
 		}
 
 		public int compareTo(Node aNode) {

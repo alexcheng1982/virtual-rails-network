@@ -63,7 +63,7 @@ public class Network {
 	
 	/**
 	 * Get all stations of current network
-	 * @return All stations
+	 * @return all stations
 	 */
 	public Set<Station> getStations() {
 		return Collections.unmodifiableSet(stations);
@@ -71,7 +71,7 @@ public class Network {
 	
 	/**
 	 * Get all routes in current network
-	 * @return
+	 * @return all routes
 	 */
 	public Set<Route> getRoutes() {
 		Set<Route> result = Sets.newHashSet();
@@ -84,7 +84,7 @@ public class Network {
 	/**
 	 * Get all routes start from a {@link Station}.
 	 * @param start Start station
-	 * @return
+	 * @return all routes start from a station
 	 */
 	public Set<Route> getRoutes(Station start) {
 		Preconditions.checkNotNull(start);

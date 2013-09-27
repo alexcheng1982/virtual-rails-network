@@ -1,5 +1,10 @@
 package rails.exception;
 
+/**
+ * Base exception class
+ * @author alexcheng
+ *
+ */
 public class RailsBaseException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 

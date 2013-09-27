@@ -1,0 +1,124 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Virtual Rails Network</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+<!-- build:css(.tmp) styles/main.css -->
+<link rel="stylesheet" href="styles/main.css">
+<!-- endbuild -->
+<!-- build:js scripts/vendor/modernizr.js -->
+<script src="bower_components/modernizr/modernizr.js"></script>
+<!-- endbuild -->
+</head>
+<body>
+	<!--[if lt IE 10]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+	<div class="container">
+		<div class="header">
+			<h3 class="text-muted">Virtual Rails Network</h3>
+		</div>
+
+		<section>
+			<h2>Calculate Distance</h2>
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="distance-stations" class="col-lg-2 control-label">Stations</label>
+					<div class="col-lg-10">
+						<input class="form-control" id="distance-stations"
+							placeholder="Stations">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<button type="button" id="calculate-distance" class="btn btn-default">Calculate</button>
+					</div>
+				</div>
+			</form>
+			<div>
+			    <h3>Result</h3>
+			    <span id="distance-result"></span> 
+			</div>
+		</section>
+		
+		<section>
+            <h2>Plan Journeys</h2>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="plan-from-station" class="col-lg-2 control-label">From station</label>
+                    <div class="col-lg-1">
+                        <input class="form-control" id="plan-from-station"
+                            placeholder="From">
+                    </div>
+                    <label for="plan-to-station" class="col-lg-2 control-label">To station</label>
+                    <div class="col-lg-1">
+                        <input class="form-control" id="plan-to-station"
+                            placeholder="To">
+                    </div>
+                    <label for="plan-stops" class="col-lg-1 control-label">Stops</label>
+                    <div class="col-lg-1">
+                        <input class="form-control" id="plan-stops">
+                    </div>
+                    <label for="plan-max" class="col-lg-2 control-label">Max number of stops?</label>
+                    <div class="col-lg-1">
+                        <input type="checkbox" id="plan-max">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="button" id="plan" class="btn btn-default">Plan journey</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <h3>Result</h3>
+                <div id="plan-result"></div> 
+            </div>
+        </section>
+        
+        <section>
+            <h2>Calculate Shortest Route</h2>
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="shortest-from-station" class="col-lg-2 control-label">From station</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" id="shortest-from-station"
+                            placeholder="From station">
+                    </div>
+                    <label for="shortest-to-station" class="col-lg-2 control-label">To station</label>
+                    <div class="col-lg-4">
+                        <input class="form-control" id="shortest-to-station"
+                            placeholder="To station">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="button" id="calculate-shortest-route" class="btn btn-default">Calculate shortest route</button>
+                    </div>
+                </div>
+            </form>
+            <div>
+                <h3>Result</h3>
+                <div id="shortest-result"></div> 
+            </div>
+        </section>
+	</div>
+
+	<!-- build:js scripts/main.js -->
+	<script data-main="scripts/main" src="bower_components/requirejs/require.js"></script>
+	<!-- endbuild -->
+</body>
+</html>
