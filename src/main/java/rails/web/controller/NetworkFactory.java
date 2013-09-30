@@ -6,7 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import rails.model.Network;
 
 /**
- * Factory of <tt>Network</tt> objects.
+ * Factory of {@code Network} objects.
+ * @see rails.model.Network
  * @author alexcheng
  *
  */

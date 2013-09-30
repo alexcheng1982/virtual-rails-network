@@ -36,12 +36,12 @@ public class ShortestRoute {
 		List<Node> closed = Lists.newArrayList();
 		open.add(new Node(new Station(start)));
 		while (!open.isEmpty()) {
-			Collections.sort(open);
+			Collections.sort(open); //Choose the node with lowest score
 			Node current = open.get(0);
 			if (new Station(end).equals(current.getStation())) {
 				return new ShortestRouteResult(current.toRoute(), current.getDistance());
 			}
-			open.remove(current);
+			open.remove(current); // Move this node from open list to closed list
 			closed.add(current);
 			Set<Route> toRoutes = network.getRoutes(current.getStation());
 			for (Route toRoute : toRoutes) {
@@ -50,15 +50,17 @@ public class ShortestRoute {
 					continue;
 				}
 				if (open.contains(toNode)) {
+					//Node is in open list, update the score and path when necessary
 					if (current.getDistance() + toRoute.getDistance() < toNode.getDistance()) {
 						toNode.setParentNode(current);
 						toNode.setDistance(current.getDistance() + toRoute.getDistance());
 					}
 				}
 				else {
+					//Node is not in open list, add it to open list and record the path
 					open.add(toNode);
-					toNode.setDistance(current.getDistance() + toRoute.getDistance());
 					toNode.setParentNode(current);
+					toNode.setDistance(current.getDistance() + toRoute.getDistance());
 				}
 			}
 		}

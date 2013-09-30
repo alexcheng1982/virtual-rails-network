@@ -12,7 +12,7 @@ public class Station {
 	private final String name;
 
 	/**
-	 * Create a new station
+	 * Construct a new station
 	 * @param name Station name
 	 */
 	public Station(String name) {

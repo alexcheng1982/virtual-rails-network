@@ -16,9 +16,9 @@ public class Route {
 
 	/**
 	 * Create a new route
-	 * @param start Start station
-	 * @param end End station
-	 * @param distance Distance between start and end station
+	 * @param start start station
+	 * @param end end station
+	 * @param distance distance between start and end station
 	 */
 	public Route(Station start, Station end, int distance) {
 		Preconditions.checkNotNull(start);

@@ -19,7 +19,12 @@ import com.google.common.primitives.Ints;
 
 /**
  * This class provides the basic abstraction of rails network. 
- * A network contains a list of stations and routes connecting these stations.
+ * A network contains a list of stations and routes connecting these stations.<br>
+ * Internal data structure design notes:
+ * <ul>
+ * 	<li>Stations are stored in their own set. This allows to represent isolated nodes in the graph.</li>
+ * 	<li>Routes are grouped by their start stations. This allows to easily find routes from one station to another.</li>
+ * </ul>
  * @see Station
  * @see Route
  * @author alexcheng
@@ -32,9 +37,9 @@ public class Network {
 	private static final Logger logger = LoggerFactory.getLogger(Network.class);
 	
 	/**
-	 * Add a new {@link Station} to the network.
-	 * @param station New {@link Station} to add
-	 * @return Current <tt>Network</tt> object to allow chaining
+	 * Add a new {@code Station} to the network.
+	 * @param station New {@code Station} to add
+	 * @return current {@code Network} object to allow chaining
 	 */
 	public Network addStation(Station station) {
 		Preconditions.checkNotNull(station);
@@ -43,9 +48,31 @@ public class Network {
 	}
 	
 	/**
-	 * Add a new {@link Route} to the network. Start and end stations of this route will also be added.
-	 * @param route New {@link Route} to add
-	 * @return Current <tt>Network</tt> object to allow chaining
+	 * Remove a {@code Station} from network. 
+	 * All routes start from or end with this station will also be removed.
+	 * @param station station to remove
+	 * @return current {@code Network} object to allow chaining
+	 */
+	public Network removeStation(Station station) {
+		Preconditions.checkNotNull(station);
+		stations.remove(station);
+		allRoutes.remove(station);
+		for (Set<Route> routes : allRoutes.values()) {
+			Set<Route> routesToRemove = Sets.newHashSet();
+			for (Route route : routes) {
+				if (station.equals(route.getEnd())) {
+					routesToRemove.add(route);
+				}
+			}
+			routes.removeAll(routesToRemove);
+		}	
+		return this;
+	}
+	
+	/**
+	 * Add a new {@code Route} to the network. Start and end stations of this route will also be added.
+	 * @param route New {@code Route} to add
+	 * @return current {@code Network} object to allow chaining
 	 */
 	public Network addRoute(Route route) {
 		Preconditions.checkNotNull(route);
@@ -58,6 +85,21 @@ public class Network {
 			routes = Sets.newHashSet(route);
 			allRoutes.put(route.getStart(), routes);
 		}
+		return this;
+	}
+	
+	/**
+	 * Remove a {@code Route} from network
+	 * @param route route to remove
+	 * @return current {@code Network} object to allow chaining
+	 * @throws StationNotExistException when start or end station of this route doesn't exist
+	 */
+	public Network removeRoute(Route route) {
+		Preconditions.checkNotNull(route);
+		checkStationExists(route.getStart().getName());
+		checkStationExists(route.getEnd().getName());
+		Set<Route> routes = allRoutes.get(route.getStart());
+		routes.remove(route);
 		return this;
 	}
 	
@@ -82,7 +124,7 @@ public class Network {
 	}
 	
 	/**
-	 * Get all routes start from a {@link Station}.
+	 * Get all routes start from a {@code Station}.
 	 * @param start Start station
 	 * @return all routes start from a station
 	 */
@@ -105,7 +147,7 @@ public class Network {
 	}
 	
 	/**
-	 * Create a <tt>Network</tt> object from an encoded string.
+	 * Create a {@code Network} object from an encoded string.
 	 * The encoded string is a list of encoded routes separated by ";".
 	 * For each encoded route, it contains start station name, end station name and distance.
 	 * These three components are separated by "#". See following for some examples of encoded string.
@@ -114,9 +156,10 @@ public class Network {
 	 * 	<li><code>A#B#1;B#C#2</code></li>
 	 * 	<li><code>A#B#1;C#D#4;Demo#Another node#100</code></li>
 	 * </ul>
+	 * Unrecognized input will be ignored.
 	 * 
 	 * @param encodedString String format of a network
-	 * @return <tt>Network</tt> object
+	 * @return {@code Network} object
 	 */
 	public static Network fromEncodedString(String encodedString) {
 		Preconditions.checkNotNull(encodedString);

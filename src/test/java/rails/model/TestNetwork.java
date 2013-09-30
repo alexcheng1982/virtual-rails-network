@@ -15,6 +15,21 @@ public class TestNetwork {
 	}
 	
 	@Test
+	public void test_remove_station() {
+		Station stationA = new Station("A");
+		Station stationB = new Station("B");
+		Station stationC = new Station("C");
+		Network network = new Network();
+		Route route1 = new Route(stationA, stationB, 10);
+		network.addRoute(route1);
+		Route route2 = new Route(stationB, stationC, 20);
+		network.addRoute(route2);
+		network.removeStation(stationB);
+		assertEquals(2, network.getStations().size());
+		assertEquals(0, network.getRoutes().size());
+	}
+	
+	@Test
 	public void test_add_route() {
 		Station stationA = new Station("A");
 		Station stationB = new Station("B");
@@ -23,6 +38,17 @@ public class TestNetwork {
 		network.addRoute(route);
 		assertEquals(1, network.getRoutes().size());
 		assertEquals(2, network.getStations().size());
+	}
+	
+	@Test
+	public void test_remove_route() {
+		Station stationA = new Station("A");
+		Station stationB = new Station("B");
+		Route route = new Route(stationA, stationB, 10);
+		Network network = new Network();
+		network.addRoute(route);
+		network.removeRoute(route);
+		assertEquals(0, network.getRoutes().size());
 	}
 
 	@Test

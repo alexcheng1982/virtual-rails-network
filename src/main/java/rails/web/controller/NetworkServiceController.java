@@ -18,7 +18,7 @@ import rails.service.ShortestRoute.ShortestRouteResult;
 import com.google.common.base.Splitter;
 
 /**
- * Web service controller for network related services
+ * JSON-based web service controller for network related services
  * @author alexcheng
  *
  */
