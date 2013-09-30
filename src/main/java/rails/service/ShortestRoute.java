@@ -88,9 +88,20 @@ public class ShortestRoute {
 		}
 	}
 	
+	/**
+	 * Represents a node in A* search algorithm
+	 * @author alexcheng
+	 *
+	 */
 	private static class Node implements Comparable<Node> {
 		private Station station;
+		/**
+		 * Parent node in the search path
+		 */
 		private Node parentNode = null;
+		/**
+		 * Distance of current search path, used as score in A* search
+		 */
 		private int distance = 0;
 		public Node(Station station) {
 			this.station = station;
@@ -120,6 +131,10 @@ public class ShortestRoute {
 			return String.format("%s (%s)", station, distance);
 		}
 		
+		/**
+		 * Get a list of stations of current search path
+		 * @return a list of stations
+		 */
 		public List<Station> toRoute() {
 			List<Station> stations = Lists.newArrayList();
 			Node node = this;

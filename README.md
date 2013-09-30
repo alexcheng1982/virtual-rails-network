@@ -32,3 +32,12 @@ Class `rails.service.ShortestRoute` is used to perform this operation.
 
 This is a Maven based project. Use `mvn jetty:run` to start the Jetty server and point your brower to http://localhost:8080 to access web front-end.
 
+## Frameworks and tools used
+
+* Spring MVC
+* Google Guava
+* Maven
+* Twitter Bootstrap
+* Bower
+* Jetty
+
